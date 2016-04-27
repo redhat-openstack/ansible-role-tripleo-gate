@@ -1,0 +1,6 @@
+---
+# defaults file for ansible-role-tripleo-gate
+
+artg_dlrn_repo: "https://github.com/openstack-packages/DLRN.git"
+artg_rpm_dir: "{{ lookup('env', 'PWD') }}"
+artg_rdoinfo_repo: "https://github.com/redhat-openstack/rdoinfo"

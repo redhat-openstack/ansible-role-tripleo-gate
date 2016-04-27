@@ -1,0 +1,113 @@
+---
+# tasks file for ansible-role-tripleo-gate
+
+- name: Ensure dlrn package dependencies
+  become: yes
+  become_user: root
+  yum: name=createrepo,gcc,git,mock,libffi-devel,openssl-devel,python-virtualenv,rpm-build state=installed
+
+- name: Create mock group
+  become: yes
+  become_user: root
+  group: name=mock state=present
+
+- name: Add user to mock group
+  become: yes
+  become_user: root
+  user:
+    name: '{{ ansible_user }}'
+    groups: mock
+
+- name: Create virtualenv for DLRN
+  command: virtualenv {{ ansible_env.HOME }}/dlrn-venv
+  args:
+    creates: '{{ ansible_env.HOME }}/dlrn-venv'
+
+- name: Clone DLRN
+  git:
+    repo: '{{ artg_dlrn_repo }}'
+    depth: 1
+    dest: '{{ ansible_env.HOME }}/dlrn'
+
+- name: force update setuptools
+  pip:
+    name: setuptools
+    state: latest
+    virtualenv: '{{ ansible_env.HOME }}/dlrn-venv'
+
+- name: force install pytz
+  pip:
+    name: pytz
+    state: latest
+    virtualenv: '{{ ansible_env.HOME }}/dlrn-venv'
+
+- name: Install dlrn pip dependencies
+  pip:
+    requirements: '{{ ansible_env.HOME }}/dlrn/requirements.txt'
+    virtualenv: '{{ ansible_env.HOME }}/dlrn-venv'
+
+- name: Add missing tox requirement
+  pip:
+    name: tox
+    virtualenv: '{{ ansible_env.HOME }}/dlrn-venv'
+
+- name: Map project name to DLRN project name
+  register: project_name_mapped
+  shell: >
+    source {{ ansible_env.HOME }}/dlrn-venv/bin/activate;
+    export PROJECT_NAME=$(echo {{ lookup('env', 'GERRIT_PROJECT') }} | sed "s|openstack/||");
+    ./scripts/map-project-name $PROJECT_NAME {{ artg_rdoinfo_repo }}
+  args:
+      chdir: '{{ ansible_env.HOME }}/dlrn'
+
+- name: Clone the gated repo and commit
+  git:
+    repo: "https://{{ lookup('env', 'GERRIT_HOST') }}/{{ lookup('env', 'GERRIT_PROJECT') }}"
+    dest: "{{ ansible_env.HOME }}/dlrn/data/{{ project_name_mapped.stdout }}"
+    refspec: "{{ lookup('env', 'GERRIT_REFSPEC') }}"
+
+- name: Run DLRN
+  shell: >
+    source {{ ansible_env.HOME }}/dlrn-venv/bin/activate;
+    python setup.py develop;
+    delorean --config-file projects.ini --head-only --local --package-name {{ project_name_mapped.stdout }} --dev --info-repo rdoinfo --build-env DELOREAN_DEV=1;
+  args:
+      chdir: '{{ ansible_env.HOME }}/dlrn'
+
+- name: Create a directory to hold the rpms
+  file:
+    path: '{{ ansible_env.HOME }}/dlrn_rpms'
+    state: directory
+
+- name: Copy the generated rpms
+  shell: |
+    rm -rf {{ ansible_env.HOME }}/dlrn_rpms/*
+    find {{ ansible_env.HOME }}/dlrn/data/repos -type f -name '*.rpm' -print0| xargs -0 cp -t {{ ansible_env.HOME }}/dlrn_rpms/
+
+- name: Run createrepo on generated rpms
+  become: yes
+  become_user: root
+  shell: 'createrepo dlrn_rpms'
+  args:
+    chdir: '{{ ansible_env.HOME }}'
+
+- name: Compress the repo before fetching
+  shell: 'tar czf dlrn_rpms.tar.gz dlrn_rpms'
+  args:
+    chdir: '{{ ansible_env.HOME }}'
+
+- name: Fetch the repo to the slave
+  fetch:
+    flat: yes
+    src: '{{ ansible_env.HOME }}/dlrn_rpms.tar.gz'
+    dest: '{{ artg_rpm_dir }}/dlrn_rpms.tar.gz'
+
+- name: Clean up
+  file:
+    path: '{{ item }}'
+    state: absent
+  with_items:
+    - '{{ ansible_env.HOME }}/dlrn'
+    - '{{ ansible_env.HOME }}/dlrn-venv'
+    - '{{ ansible_env.HOME }}/dlrn_rpms'
+    - '{{ ansible_env.HOME }}/dlrn_rpms.tar.gz'
