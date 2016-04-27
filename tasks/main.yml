@@ -1,0 +1,128 @@
+---
+# tasks file for ansible-role-tripleo-gate
+
+- block:
+    - name: Ensure dlrn package dependencies
+      become: yes
+      become_user: root
+      yum: name=createrepo,gcc,git,mock,libffi-devel,openssl-devel,python-virtualenv,rpm-build state=installed
+
+    - name: Create mock group
+      become: yes
+      become_user: root
+      group: name=mock state=present
+
+    - name: Add user to mock group
+      become: yes
+      become_user: root
+      user:
+        name: '{{ ansible_user }}'
+        groups: mock
+
+    - name: Create virtualenv for DLRN
+      command: virtualenv {{ ansible_env.HOME }}/dlrn-venv
+      args:
+        creates: '{{ ansible_env.HOME }}/dlrn-venv'
+
+    - name: Clone DLRN
+      git:
+        repo: '{{ artg_dlrn_repo }}'
+        depth: 1
+        dest: '{{ ansible_env.HOME }}/dlrn'
+
+    - name: Install dlrn pip dependencies
+      pip:
+        requirements: '{{ ansible_env.HOME }}/dlrn/requirements.txt'
+        virtualenv: '{{ ansible_env.HOME }}/dlrn-venv'
+
+    - name: Add missing tox requirement
+      pip:
+        name: tox
+        virtualenv: '{{ ansible_env.HOME }}/dlrn-venv'
+
+    - name: Create logs directory
+      file:
+        path: '{{ ansible_env.HOME }}/dlrn/logs'
+        state: directory
+        mode: 0755
+
+    - name: Run Delorean
+      shell: >
+        source {{ ansible_env.HOME }}/dlrn-venv/bin/activate;
+        export GERRIT_BRANCH={{ lookup('env', 'GERRIT_BRANCH') }};
+        export GERRIT_HOST={{ lookup('env', 'GERRIT_HOST') }};
+        export GERRIT_PROJECT={{ lookup('env', 'GERRIT_PROJECT') }};
+        export GERRIT_REFSPEC={{ lookup('env', 'GERRIT_REFSPEC') }};
+        timeout --signal=SIGKILL 3600 ./scripts/run_tests.sh
+      args:
+          chdir: '{{ ansible_env.HOME }}/dlrn'
+
+    - name: Create a directory to hold the dlrn rpms
+      file:
+        path: '{{ ansible_env.HOME }}/dlrn_rpms'
+        state: directory
+
+    - name: Copy the generated rpms
+      shell: |
+        find {{ ansible_env.HOME }}/dlrn/data/repos -type f -name '*.rpm' -print0| xargs -0 cp -t {{ ansible_env.HOME }}/dlrn_rpms/
+        rm -rf {{ ansible_env.HOME }}/dlrn
+
+    - name: Run createrepo on generated rpms
+      become: yes
+      become_user: root
+      shell: "createrepo dlrn_rpms"
+      args:
+        chdir: "{{ ansible_env.HOME }}"
+
+    - name: Compress the repo before fetching
+      shell: "tar czf dlrn_rpms.tar.gz dlrn_rpms"
+      args:
+        chdir: "{{ ansible_env.HOME }}"
+
+    - name: Fetch the repo to the slave
+      fetch:
+        flat: yes
+        src: "{{ ansible_env.HOME }}/dlrn_rpms.tar.gz"
+        dest: "{{ artg_rpm_dir }}/dlrn_rpms.tar.gz"
+  tags:
+    - artg_build_rpms
+
+- block:
+    - name: Install release tool
+      become: yes
+      become_user: root
+      command: "yum localinstall -y {{ product.rpm }}"
+      when: product.rpm is defined and product.rpm
+
+    - name: Execute rhos-release for packstack poodle/puddle
+      become: yes
+      become_user: root
+      command: "rhos-release {{ product.full_version|int }} {{ product.repo.rhos_release.extra_args|join(' ') }}"
+      when: product.rpm is defined and product.rpm
+
+    - name: Unpack the repo
+      unarchive:
+        src: "{{ base_dir }}/dlrn_rpms.tar.gz"
+        dest: "{{ ansible_env.HOME }}"
+
+    - name: Lower repo priorities from one
+      become: yes
+      become_user: root
+      shell: >
+        for file in /etc/yum.repos.d/*.repo; do
+            sed -i 's/priority=1/priority=2/' $file;
+        done
+
+    - name: Setup repository configuration
+      become: yes
+      become_user: root
+      template:
+        src: dlrn_rpms.j2
+        dest: /etc/yum.repos.d/dlrn_rpms.repo
+
+    - name: print out current repo config
+      become: yes
+      become_user: root
+      command: yum -d 7 repolist
+  tags:
+    - artg_install_rpms
