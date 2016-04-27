@@ -1,0 +1,98 @@
+---
+# tasks file for ansible-role-tripleo-gate
+
+- name: Ensure DLRN package dependencies
+  become: yes
+  become_user: root
+  yum: name=createrepo,gcc,git,mock,libffi-devel,openssl-devel,python-virtualenv,rpm-build state=installed
+
+- name: Create mock group
+  become: yes
+  become_user: root
+  group: name=mock state=present
+
+- name: Add user to mock group
+  become: yes
+  become_user: root
+  user:
+    name: '{{ ansible_user }}'
+    groups: mock
+
+- name: Create virtualenv for DLRN
+  command: virtualenv {{ ansible_user_dir }}/dlrn-venv
+  args:
+    creates: '{{ ansible_user_dir }}/dlrn-venv'
+
+- name: Clone DLRN
+  git:
+    repo: '{{ artg_dlrn_repo_url }}'
+    depth: 1
+    dest: '{{ ansible_user_dir }}/DLRN'
+
+# workaround for
+# https://github.com/openstack-packages/DLRN/issues/16
+- name: force update pip (see DLRN issue 16)
+  pip:
+    name: pip
+    state: latest
+    virtualenv: '{{ ansible_user_dir }}/dlrn-venv'
+
+- name: Install DLRN pip requirements
+  pip:
+    requirements: '{{ ansible_user_dir }}/DLRN/requirements.txt'
+    virtualenv: '{{ ansible_user_dir }}/dlrn-venv'
+
+- name: Map project name to DLRN project name
+  register: project_name_mapped
+  shell: >
+    source {{ ansible_user_dir }}/dlrn-venv/bin/activate;
+    export PROJECT_NAME=$(echo {{ lookup('env', 'GERRIT_PROJECT') }} | sed "s|openstack/||");
+    ./scripts/map-project-name $PROJECT_NAME {{ artg_rdoinfo_repo_url }}
+  args:
+      chdir: '{{ ansible_user_dir }}/DLRN'
+
+- name: Clone the gated change
+  git:
+    repo: "https://{{ lookup('env', 'GERRIT_HOST') }}/{{ lookup('env', 'GERRIT_PROJECT') }}"
+    dest: "{{ ansible_user_dir }}/DLRN/data/{{ project_name_mapped.stdout }}"
+    refspec: "{{ lookup('env', 'GERRIT_REFSPEC') }}"
+
+- name: Run DLRN
+  shell: >
+    source {{ ansible_user_dir }}/dlrn-venv/bin/activate;
+    python setup.py develop;
+    delorean --config-file projects.ini --head-only --local --package-name {{ project_name_mapped.stdout }} --dev --info-repo rdoinfo --build-env DELOREAN_DEV=1;
+  args:
+      chdir: '{{ ansible_user_dir }}/DLRN'
+
+- name: Create a directory to hold the rpms
+  file:
+    path: '{{ ansible_user_dir }}/gating_repo'
+    state: directory
+
+- name: Copy the generated rpms
+  shell: >
+    rm -rf {{ ansible_user_dir }}/gating_repo/*;
+    find {{ ansible_user_dir }}/DLRN/data/repos -type f -name '*.rpm' -print0 | xargs -0 cp -t {{ ansible_user_dir }}/gating_repo;
+
+- name: Run createrepo on generated rpms
+  shell: 'createrepo gating_repo'
+  args:
+    chdir: '{{ ansible_user_dir }}'
+
+- name: Compress the repo
+  shell: 'tar czf {{ artg_compressed_gating_repo }} gating_repo'
+  args:
+    chdir: '{{ ansible_user_dir }}'
+
+- name: Clean up
+  file:
+    path: '{{ item }}'
+    state: absent
+  with_items:
+    - '{{ ansible_user_dir }}/DLRN'
+    - '{{ ansible_user_dir }}/dlrn-venv'
+    - '{{ ansible_user_dir }}/gating_repo'
+
+- name: Trigger repo injection for quickstart
+  set_fact: compressed_gating_repo={{ artg_compressed_gating_repo }}
