@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "baa041b7_c6a0fda1",
+        "filename": "tasks/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1000586
+      },
+      "writtenOn": "2016-05-03T21:53:58Z",
+      "side": 1,
+      "message": "ah very cool :)",
+      "range": {
+        "startLine": 4,
+        "startChar": 2,
+        "endLine": 4,
+        "endChar": 7
+      },
+      "revId": "a29992ed5fe92dc6ad604eabefea43f7e4dd023e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
