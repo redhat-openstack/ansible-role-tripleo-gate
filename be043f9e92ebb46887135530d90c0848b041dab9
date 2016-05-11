@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "baa041b7_77c8a0a8",
+        "filename": "tasks/main.yml",
+        "patchSetId": 14
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1000777
+      },
+      "writtenOn": "2016-05-11T15:42:48Z",
+      "side": 1,
+      "message": "Insisting on the name \"Clone the gated change\" made me think of something. If you set this line to refspec: \"{{ artg_refspec }}:{{ artg_branch }}\" it should automatically fetch the change an put it in branch, so when delorean checkout this branch, it\u0027s already there. This should make you avoid a couple of confusing tasks.",
+      "revId": "be043f9e92ebb46887135530d90c0848b041dab9",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
