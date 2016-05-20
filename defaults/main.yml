@@ -4,3 +4,11 @@
 artg_dlrn_repo_url: "https://github.com/openstack-packages/DLRN.git"
 artg_rdoinfo_repo_url: "https://github.com/redhat-openstack/rdoinfo"
 artg_compressed_gating_repo: "/home/stack/gating_repo.tar.gz"
+
+# Default gerrit servers where code changes come from
+artg_code_hosts:
+  - "review.openstack.org"
+  - "review.gerrithub.org"
+# Default gerrit servers where packaging changes come from
+artg_packaging_hosts:
+  - "review.rdoproject.org"

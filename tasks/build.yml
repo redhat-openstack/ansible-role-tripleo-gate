@@ -24,16 +24,60 @@
   args:
       chdir: '{{ ansible_user_dir }}/DLRN'
 
+# TODO(trown): In order to gate a packaging change and a code change to the
+# same repo, we need to move this logic into the dependency processing
+# modules. However, AFAICT zuul does not even support multi-gerrit
+# dependencies, and adding it to the jenkins processor would require a
+# pretty significant change. Specifically, we would need some way to
+# associate a code change with a packaging change. For now, we can massage
+# the outputs from zuul or jenkins to allow for a nice format for manual
+# testing.
+- when: artg_change.host is defined and artg_change.host in artg_code_hosts
+  block:
+    - name: Convert zuul or jenkins repo format (code)
+      set_fact: code_repo=https://{{ artg_change.host }}/{{ artg_change.project }}
+    - name: Convert zuul or jenkins refspec format (code)
+      set_fact: code_refspec={{ artg_change.refspec }}
+
+- when: artg_change.host is defined and artg_change.host in artg_packaging_hosts
+  block:
+    - name: Convert zuul or jenkins repo format (packaging)
+      set_fact: packaging_repo=https://{{ artg_change.host }}/r/{{ artg_change.project }}
+    - name: Convert zuul or jenkins refspec format (packaging)
+      set_fact: packaging_refspec={{ artg_change.refspec }}
+
+- when: artg_change.code_repo is defined
+  block:
+    - name: Set code repo for manual changes
+      set_fact: code_repo={{ artg_change.code_repo}}
+    - name: Set refspec for manual changes
+      set_fact: code_refspec={{ artg_change.code_refspec }}
+
+- when: artg_change.packaging_repo is defined
+  block:
+    - name: Set packaging repo for manual changes
+      set_fact: packaging_repo={{ artg_change.packaging_repo }}
+    - name: Set packaging refspec for manual changes
+      set_fact: packaging_refspec={{ artg_change.packaging_refspec }}
+
 # TODO(adarazs): regarding the refspec: a fix is needed for DLRN. We're
 # creating an origin/<commit_branch> reference, because DLRN does something
 # like "git checkout -b <branch> origin/<branch>" and there's no way to prevent
 # it, except "masking" this origin reference with out gated change.
 # The existing --dev mode only works for packaging repos.
-- name: Clone the gated change
+- name: Clone the gated change (if there is one)
   git:
-    repo: "https://{{ artg_change.host }}/{{ artg_change.project }}"
+    repo: "{{ code_repo }}"
     dest: "{{ ansible_user_dir }}/DLRN/data/{{ project_name_mapped.stdout }}"
-    refspec: "{{ artg_change.refspec }}:origin/{{ artg_change.branch }}"
+    refspec: "{{ code_refspec }}:origin/{{ artg_change.branch }}"
+  when: code_repo is defined
+
+- name: Clone the packaging change (if there is one)
+  git:
+    repo: "{{ packaging_repo }}"
+    dest: "{{ ansible_user_dir }}/DLRN/data/{{ project_name_mapped.stdout }}_distro"
+    refspec: "{{ packaging_refspec }}:origin/{{ artg_distro }}"
+  when: packaging_repo is defined
 
 - name: Run DLRN
   shell: >
