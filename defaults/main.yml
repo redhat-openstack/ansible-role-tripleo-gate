@@ -9,3 +9,11 @@ artg_compressed_gating_repo: "/home/stack/gating_repo.tar.gz"
 artg_requirements:
   - '{{ local_working_dir }}/tripleo-quickstart/requirements.txt'
   - '{{ local_working_dir }}/tripleo-quickstart/quickstart-role-requirements.txt'
+
+# Default gerrit servers where code changes come from
+artg_code_hosts:
+  - "review.openstack.org"
+  - "review.gerrithub.org"
+# Default gerrit servers where packaging changes come from
+artg_packaging_hosts:
+  - "review.rdoproject.org"
