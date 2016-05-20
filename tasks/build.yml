@@ -32,11 +32,20 @@
 # like "git checkout -b <branch> origin/<branch>" and there's no way to prevent
 # it, except "masking" this origin reference with out gated change.
 # The existing --dev mode only works for packaging repos.
-- name: Clone the gated change
+- name: Clone the gated change (if there is one)
   git:
-    repo: "https://{{ change.host }}/{{ change.project }}"
+    repo: "{{ change.code_repo }}"
     dest: "{{ ansible_user_dir }}/DLRN/data/{{ project_name_mapped.stdout }}"
-    refspec: "{{ change.refspec }}:origin/{{ change.branch }}"
+    refspec: "{{ change.code_refspec }}:origin/{{ change.branch }}"
+  when: change.code_repo is defined
+
+- name: Clone the packaging change (if there is one)
+  git:
+    repo: "{{ change.packaging_repo }}"
+    dest: "{{ ansible_user_dir }}/DLRN/data/{{ project_name_mapped.stdout }}_distro"
+    refspec: "{{ change.packaging_refspec }}:origin/{{ artg_distro }}"
+  when: change.packaging_repo is defined
+
 
 - name: Run DLRN
   shell: >
