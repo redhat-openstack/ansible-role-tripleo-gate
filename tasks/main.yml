@@ -62,6 +62,13 @@
     depth: 1
     dest: '{{ ansible_user_dir }}/DLRN'
 
+#Remove the rpm install test to speed up delorean
+#TODO: add an option for this in delorean
+- name: Remove DLRN RPM install test
+  shell: >
+    sed -i -e 's%--postinstall%%'
+    {{ ansible_user_dir }}/DLRN/scripts/build_rpm.sh
+
 # workaround for
 # https://github.com/openstack-packages/DLRN/issues/16
 - name: force update pip (see DLRN issue 16)
