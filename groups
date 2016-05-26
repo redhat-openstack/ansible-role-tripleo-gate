@@ -1,4 +1,5 @@
-# UUID         	Group Name
+# UUID            	Group Name
 #
-user:adarazs   	user/Attila Darazs (adarazs)
-user:weshayutin	user/wes hayutin (weshayutin)
+user:adarazs      	user/Attila Darazs (adarazs)
+user:rdo-ci-centos	user/rdo-ci-centos
+user:weshayutin   	user/wes hayutin (weshayutin)
