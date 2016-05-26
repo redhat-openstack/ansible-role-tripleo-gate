@@ -178,6 +178,30 @@
     },
     {
       "key": {
+        "uuid": "baa041b7_19fcb43c",
+        "filename": "files/jenkins_changes.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1003529
+      },
+      "writtenOn": "2016-05-26T14:35:08Z",
+      "side": 1,
+      "message": "hmm... maybe it is not important for jenkins... since for review.openstack.org and review.rdoproject.org we have zuul.\n\nwhat is the use case for jenkins parsing? Maybe that will help define if we need this now or can leave it with the note for later.",
+      "parentUuid": "baa041b7_d992cc4b",
+      "range": {
+        "startLine": 75,
+        "startChar": 13,
+        "endLine": 75,
+        "endChar": 35
+      },
+      "revId": "8a78c51625855c9770811abbb6680d661fd580ee",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "baa041b7_b964a8b8",
         "filename": "files/jenkins_changes.py",
         "patchSetId": 4
@@ -284,6 +308,30 @@
       "side": 1,
       "message": "oh, no problem to make generator :) just use ()\n\n  if data[\u0027project\u0027] not in (d[\u0027project\u0027] for d in deps)",
       "parentUuid": "baa041b7_99afa47c",
+      "range": {
+        "startLine": 96,
+        "startChar": 14,
+        "endLine": 96,
+        "endChar": 19
+      },
+      "revId": "8a78c51625855c9770811abbb6680d661fd580ee",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "baa041b7_d9f1ac6c",
+        "filename": "files/jenkins_changes.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1003529
+      },
+      "writtenOn": "2016-05-26T14:35:08Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "baa041b7_194ef4c0",
       "range": {
         "startLine": 96,
         "startChar": 14,
@@ -442,6 +490,30 @@
       "side": 1,
       "message": "I can actually shorten the line with \"\u003e\", if that\u0027s the problem. :)\n\nAs this is quite one shot solution for this specific problem, I didn\u0027t want to bother writing it as a module and making sure I install them in the proper library folders, but if wrapping them in the role[1] works (suggested by Sagi), then I\u0027ll make them a module.\n\n[1] http://docs.ansible.com/ansible/playbooks_roles.html#embedding-modules-and-plugins-in-roles",
       "parentUuid": "baa041b7_f9a7d0a4",
+      "range": {
+        "startLine": 8,
+        "startChar": 2,
+        "endLine": 8,
+        "endChar": 10
+      },
+      "revId": "8a78c51625855c9770811abbb6680d661fd580ee",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "baa041b7_f9dfd0d3",
+        "filename": "tasks/main.yml",
+        "patchSetId": 4
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1003529
+      },
+      "writtenOn": "2016-05-26T14:35:08Z",
+      "side": 1,
+      "message": "ya putting it in a library subfolder of the role \"just works\"\n\nhttps://github.com/redhat-openstack/ansible-role-tripleo-image-build/blob/master/library/tripleo_build_images.py\n\nI use that in quickstart image building jobs by just git cloning the repo right into roles path, so no extra magic is needed.",
+      "parentUuid": "baa041b7_39d098f5",
       "range": {
         "startLine": 8,
         "startChar": 2,
