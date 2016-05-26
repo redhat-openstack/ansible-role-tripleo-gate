@@ -272,6 +272,30 @@
     },
     {
       "key": {
+        "uuid": "baa041b7_194ef4c0",
+        "filename": "files/jenkins_changes.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1002450
+      },
+      "writtenOn": "2016-05-26T14:26:02Z",
+      "side": 1,
+      "message": "oh, no problem to make generator :) just use ()\n\n  if data[\u0027project\u0027] not in (d[\u0027project\u0027] for d in deps)",
+      "parentUuid": "baa041b7_99afa47c",
+      "range": {
+        "startLine": 96,
+        "startChar": 14,
+        "endLine": 96,
+        "endChar": 19
+      },
+      "revId": "8a78c51625855c9770811abbb6680d661fd580ee",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "baa041b7_59fd9cb2",
         "filename": "files/jenkins_changes.py",
         "patchSetId": 4
