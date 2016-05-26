@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "baa041b7_7943c013",
+        "filename": "files/jenkins_changes.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1002450
+      },
+      "writtenOn": "2016-05-26T12:42:57Z",
+      "side": 1,
+      "message": "It\u0027s better to compile regexps in the beginning of file: \n  \n  tag_re \u003d re.compile(...)\n  tag \u003d tag_re.search...",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 71
+      },
+      "revId": "8a78c51625855c9770811abbb6680d661fd580ee",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "baa041b7_d93acc98",
+        "filename": "files/jenkins_changes.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1002450
+      },
+      "writtenOn": "2016-05-26T12:42:57Z",
+      "side": 1,
+      "message": "more pythonic will be: \"if target in hostname\"",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 51
+      },
+      "revId": "8a78c51625855c9770811abbb6680d661fd580ee",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "baa041b7_b964a8b8",
+        "filename": "files/jenkins_changes.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1002450
+      },
+      "writtenOn": "2016-05-26T12:42:57Z",
+      "side": 1,
+      "message": "you can just \"+\"",
+      "range": {
+        "startLine": 77,
+        "startChar": 17,
+        "endLine": 77,
+        "endChar": 21
+      },
+      "revId": "8a78c51625855c9770811abbb6680d661fd580ee",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "baa041b7_3971b876",
+        "filename": "files/jenkins_changes.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1002450
+      },
+      "writtenOn": "2016-05-26T12:42:57Z",
+      "side": 1,
+      "message": "might be more readable:   \n  if data[\u0027project\u0027] not in [d[\u0027project\u0027] for d in deps]",
+      "range": {
+        "startLine": 96,
+        "startChar": 14,
+        "endLine": 96,
+        "endChar": 19
+      },
+      "revId": "8a78c51625855c9770811abbb6680d661fd580ee",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "baa041b7_59fd9cb2",
+        "filename": "files/jenkins_changes.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1002450
+      },
+      "writtenOn": "2016-05-26T12:42:57Z",
+      "side": 1,
+      "message": "why not just sys.argv[1:]",
+      "range": {
+        "startLine": 117,
+        "startChar": 26,
+        "endLine": 117,
+        "endChar": 67
+      },
+      "revId": "8a78c51625855c9770811abbb6680d661fd580ee",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
