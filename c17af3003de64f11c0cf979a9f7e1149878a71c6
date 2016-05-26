@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "baa041b7_991fa45a",
+        "filename": "tasks/build.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1001800
+      },
+      "writtenOn": "2016-05-26T11:17:48Z",
+      "side": 1,
+      "message": "So this is not compatible with the Zuul/Jenkins method, where we only output the host/project.\n\nI don\u0027t want to do further processing in those scripts, so I\u0027d rather add here a step that constructs code_repo/packaging_repo variable. I guess a good rule for it would be to search \"packaging/\" in the project name, but let me know if you have a better idea.",
+      "range": {
+        "startLine": 37,
+        "startChar": 10,
+        "endLine": 37,
+        "endChar": 34
+      },
+      "revId": "c17af3003de64f11c0cf979a9f7e1149878a71c6",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "baa041b7_f917d042",
+        "filename": "tasks/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1001800
+      },
+      "writtenOn": "2016-05-26T11:17:48Z",
+      "side": 1,
+      "message": "Use \"\u003e\" to\n\n1) avoid the backslash\n2) have the shell part in a format that you can copy directly from the ansible output. Otherwise it will concatenate it, but keeps the \\ in there, if I remember correctly. At least ansible 1.x did that.",
+      "range": {
+        "startLine": 65,
+        "startChar": 9,
+        "endLine": 65,
+        "endChar": 10
+      },
+      "revId": "c17af3003de64f11c0cf979a9f7e1149878a71c6",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
