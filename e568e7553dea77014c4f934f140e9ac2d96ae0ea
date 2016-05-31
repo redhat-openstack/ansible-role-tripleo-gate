@@ -1,0 +1,9 @@
+Verified+1: <openstack-ci-service+rdo-ci-centos@redhat.com>
+Code-Review+1: John Trowbridge <trown@redhat.com>
+Code-Review+1: Sagi (Sergey) Shnaidman <sshnaidm@redhat.com>
+Code-Review+2: Attila Darazs <adarazs@redhat.com>
+Submitted-by: Attila Darazs <adarazs@redhat.com>
+Submitted-at: Tue, 31 May 2016 06:10:01 -0400
+Reviewed-on: https://review.gerrithub.io/277358
+Project: redhat-openstack/ansible-role-tripleo-gate
+Branch: refs/heads/master
