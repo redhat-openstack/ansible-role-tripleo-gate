@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "baa041b7_ba45ac43",
+        "filename": "tasks/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1000777
+      },
+      "writtenOn": "2016-05-31T12:30:11Z",
+      "side": 1,
+      "message": "you can add fact directly from the module passing module.exit_json(changed\u003dTrue, ansible_facts\u003dfacts) where facts is a dict",
+      "revId": "0f360d4dd93f2b22002bd6cf8b8211ace3ae7c96",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
