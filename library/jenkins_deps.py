@@ -191,10 +191,10 @@ def resolve_dep(host, change_id, branch, revision):
 def main():
     module = AnsibleModule(
         argument_spec=dict(
-            host=dict(required=True),
-            change_id=dict(required=True),
-            branch=dict(required=False, default=None),
-            patchset_rev=dict(required=False, default=None)
+            host=dict(required=True, type='str'),
+            change_id=dict(required=True, type='str'),
+            branch=dict(required=False, default=None, type='str'),
+            patchset_rev=dict(required=False, default=None, type='str')
         )
     )
     result = resolve_dep(module.params['host'],

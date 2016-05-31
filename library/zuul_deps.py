@@ -42,8 +42,8 @@ def process(host, changes):
 def main():
     module = AnsibleModule(
         argument_spec=dict(
-            host=dict(required=True),
-            changes=dict(required=True)
+            host=dict(required=True, type='str'),
+            changes=dict(required=True, type='str')
         )
     )
     result = process(module.params['host'],
