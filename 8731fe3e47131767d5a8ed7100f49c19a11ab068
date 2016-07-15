@@ -16,6 +16,24 @@
       "revId": "8731fe3e47131767d5a8ed7100f49c19a11ab068",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "baa041b7_17aef4e5",
+        "filename": "tasks/dlrn-build.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1001800
+      },
+      "writtenOn": "2016-07-15T10:39:17Z",
+      "side": 1,
+      "message": "I did have it in there at the first place I used, but I figured if somebody googles \"loop_control ansible\" they will find out quickly.\n\nI put it in the commit message, in case somebody will git blame the line to figure out what this does. It\u0027s convenient but not too useful to explain Ansible within a playbook, so I\u0027d rather merge without.",
+      "parentUuid": "baa041b7_9166944f",
+      "revId": "8731fe3e47131767d5a8ed7100f49c19a11ab068",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     }
   ]
 }
