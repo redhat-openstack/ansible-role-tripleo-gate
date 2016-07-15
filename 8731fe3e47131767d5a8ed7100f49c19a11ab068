@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "baa041b7_9166944f",
+        "filename": "tasks/dlrn-build.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1007211
+      },
+      "writtenOn": "2016-07-15T04:22:49Z",
+      "side": 1,
+      "message": "I would include this, to help educate and explain.  it\u0027s not obvious to new eyes, and IMHO worth the comment.\n\n# http://docs.ansible.com/ansible/playbooks_loops.html#loop-control",
+      "revId": "8731fe3e47131767d5a8ed7100f49c19a11ab068",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
