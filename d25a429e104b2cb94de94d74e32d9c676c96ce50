@@ -1,0 +1,7 @@
+Code-Review+2: wes hayutin <weshayutin@gmail.com>
+Verified+1: <openstack-ci-service+rdo-ci-centos@redhat.com>
+Submitted-by: wes hayutin <weshayutin@gmail.com>
+Submitted-at: Mon, 25 Jul 2016 13:51:45 -0400
+Reviewed-on: https://review.gerrithub.io/285176
+Project: redhat-openstack/ansible-role-tripleo-gate
+Branch: refs/heads/master
