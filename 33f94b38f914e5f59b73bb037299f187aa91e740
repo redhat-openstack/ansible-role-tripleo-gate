@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "baa041b7_14efeb1e",
+        "filename": "tasks/dlrn-build.yml",
+        "patchSetId": 6
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1006054
+      },
+      "writtenOn": "2016-07-26T18:45:24Z",
+      "side": 1,
+      "message": "Any reason to be setting these facts locally instead of using the ones in the artg_change dict?",
+      "revId": "33f94b38f914e5f59b73bb037299f187aa91e740",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
