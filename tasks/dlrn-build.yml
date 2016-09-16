@@ -26,12 +26,18 @@
   args:
       chdir: '{{ ansible_user_dir }}/DLRN'
 
-- name: Clone the gated change
+- name: Clone the gated remote change
   git:
     repo: 'https://{{ artg_change.host }}/{{ artg_change.project }}'
     dest: '{{ ansible_user_dir }}/DLRN/data/{{ project_name_mapped.stdout }}'
     refspec: '{{ artg_change.refspec }}'
     version: 'FETCH_HEAD'
+  when: artg_change.host|default("") != ""
+
+- name: Clone the gated local change
+  shell: |
+    cp -a {{ artg_change.path }} {{ ansible_user_dir }}/DLRN/data/{{ project_name_mapped.stdout }}
+  when: artg_change.path|default("") == ""
 
 - name: Run DLRN
   shell: >
