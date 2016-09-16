@@ -37,6 +37,7 @@ artg_change_list:
       project: "openstack/tripleo-heat-templates"
       branch: "master"
       refspec: "refs/changes/1/123456/1"
+      path: "/workspace/repos/tht/" # for local changes only
     - host: ...
 ```
 
@@ -56,6 +57,19 @@ If we're running in a Jenkins environment with the
 searches for "Depends-On:" lines in the commit message (and recursively in the
 commit messages of the dependent changes) and adds all of them to the gating
 list. This happens through Gerrit server's public REST API.
+
+Gating Local Changes
+--------------------
+
+The role is able to work with changes from a local copy of a repo. In this case
+project name and branches in changes list are still mandatory, as they cannot be
+desumed by the local repo, but path field is used instead of the refspec, that contains
+the path to the top-level dir of the repo that should be gated.
+The branch parameters still refers to the upstream branch, not the local repo branch. Local
+branch needed to be gated should be manually checked out before deploying.
+A `LOCAL_CHANGES` environment variables can be used, and the format is the same as
+the `ZUUL_CHANGES` variable, with again the exception of specifying the path instead of
+the refspec.
 
 Example Playbook
 ----------------

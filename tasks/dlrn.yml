@@ -74,6 +74,11 @@
     changes: "{{ lookup('env', 'ZUUL_CHANGES') }}"
   when: artg_change_list is not defined and "{{ lookup('env', 'ZUUL_HOST') }}" != ""
 
+- name: Parse Local changes
+  local_deps:
+    changes: "{{ lookup('env', 'LOCAL_CHANGES') }}"
+  when: artg_change_list is not defined and "{{ lookup('env', 'LOCAL_CHANGES') }}" != ""
+
 - name: Clone and build the specific DLRN projects
   include: dlrn-build.yml artg_change={{ item }}
   with_items: '{{ artg_change_list }}'
