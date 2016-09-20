@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "baa041b7_a6498490",
+        "filename": "library/local_deps.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1001800
+      },
+      "writtenOn": "2016-09-20T14:26:48Z",
+      "side": 1,
+      "message": "I\u0027m not a big fan of re-purposing the zuul format as it\u0027s a bit hard to make it by hand, but it sure cuts down on development cost. I can\u0027t really offer any simple alternative either, just saying that it\u0027s far from user friendly.",
+      "range": {
+        "startLine": 25,
+        "startChar": 32,
+        "endLine": 25,
+        "endChar": 43
+      },
+      "revId": "26ac5b9101b4b81a14cac47e9133e3ba4495e636",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "baa041b7_2068bb20",
+        "filename": "tasks/dlrn-build.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1001800
+      },
+      "writtenOn": "2016-09-20T14:26:48Z",
+      "side": 1,
+      "message": "I think we should actually just copy over the repo and preserve the state of it completely as DLRN leaves it alone too. This way people would be able to use the repo in the state they have it, maybe even with uncommited changes.",
+      "range": {
+        "startLine": 38,
+        "startChar": 2,
+        "endLine": 38,
+        "endChar": 5
+      },
+      "revId": "26ac5b9101b4b81a14cac47e9133e3ba4495e636",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
