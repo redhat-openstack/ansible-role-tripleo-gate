@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "baa041b7_030c9740",
+        "filename": "tasks/dlrn-build.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1001800
+      },
+      "writtenOn": "2016-09-22T14:08:35Z",
+      "side": 1,
+      "message": "There\u0027s no reason to use shell here, command should be enough.\n\nBut actually what I meant is that we could use the \"copy\" module to directly copy the repos from the machine running the job to the virthost, so people don\u0027t have to copy repos but rather it can be used directly from a developer\u0027s machine.",
+      "range": {
+        "startLine": 38,
+        "startChar": 2,
+        "endLine": 38,
+        "endChar": 7
+      },
+      "revId": "ec5d3668555d0ac3022b74fd0fab1b50143b29c7",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
