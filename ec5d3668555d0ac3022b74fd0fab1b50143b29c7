@@ -39,6 +39,24 @@
       "revId": "ec5d3668555d0ac3022b74fd0fab1b50143b29c7",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "baa041b7_483bc5d1",
+        "filename": "tasks/dlrn-build.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1001800
+      },
+      "writtenOn": "2016-09-29T09:28:19Z",
+      "side": 1,
+      "message": "It\u0027s the other way around. Everything is done on the virthost and we only copy out the created repo in the end with fetch. So the local repos should be pushed out to the virthost to build them.\n\nhttps://github.com/openstack/tripleo-quickstart/blob/master/playbooks/dlrn-gate.yml#L27-L30",
+      "parentUuid": "baa041b7_3a0a0e21",
+      "revId": "ec5d3668555d0ac3022b74fd0fab1b50143b29c7",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     }
   ]
 }
