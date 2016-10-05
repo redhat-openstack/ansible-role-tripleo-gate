@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "baa041b7_35ffa603",
+        "filename": "tasks/dlrn-build.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1001800
+      },
+      "writtenOn": "2016-10-05T09:34:22Z",
+      "side": 1,
+      "message": "Is there a reason not to just do \"is defined\" instead?",
+      "range": {
+        "startLine": 35,
+        "startChar": 2,
+        "endLine": 35,
+        "endChar": 42
+      },
+      "revId": "0de52a3394fd4876b944287ce9c630ea113b2ad5",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "baa041b7_20ff6602",
+        "filename": "tasks/dlrn-build.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1001800
+      },
+      "writtenOn": "2016-10-05T09:34:22Z",
+      "side": 1,
+      "message": "Same but \"is not defined\"",
+      "range": {
+        "startLine": 41,
+        "startChar": 2,
+        "endLine": 41,
+        "endChar": 42
+      },
+      "revId": "0de52a3394fd4876b944287ce9c630ea113b2ad5",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
