@@ -1,5 +1,6 @@
-# UUID            	Group Name
+# UUID                                  	Group Name
 #
-user:adarazs      	user/Attila Darazs (adarazs)
-user:rdo-ci-centos	user/rdo-ci-centos
-user:weshayutin   	user/wes hayutin (weshayutin)
+b493ce4e93258776698bf2fec3c62040c15a9eb4	oooq-core
+user:adarazs                            	user/Attila Darazs (adarazs)
+user:rdo-ci-centos                      	user/rdo-ci-centos
+user:weshayutin                         	user/wes hayutin (weshayutin)
