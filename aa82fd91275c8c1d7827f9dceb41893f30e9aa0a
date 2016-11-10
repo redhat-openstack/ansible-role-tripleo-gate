@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "baa041b7_7bc6a369",
+        "filename": "tasks/dlrn-build.yml",
+        "patchSetId": 4
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1001800
+      },
+      "writtenOn": "2016-11-10T18:09:15Z",
+      "side": 1,
+      "message": "I think this should be not equals.",
+      "range": {
+        "startLine": 41,
+        "startChar": 37,
+        "endLine": 41,
+        "endChar": 39
+      },
+      "revId": "aa82fd91275c8c1d7827f9dceb41893f30e9aa0a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
