@@ -37,7 +37,7 @@
   shell: >
     source {{ ansible_user_dir }}/dlrn-venv/bin/activate;
     while true; do
-        delorean --config-file projects.ini --head-only --package-name {{ project_name_mapped.stdout }} --local --info-repo rdoinfo --build-env DELOREAN_DEV=1 || /bin/true;
+        dlrn --config-file projects.ini --head-only --package-name {{ project_name_mapped.stdout }} --local --info-repo rdoinfo --build-env --dev || /bin/true;
         STATUS=$(echo "select status from commits where project_name == '{{ project_name_mapped.stdout }}' order by id desc limit 1;" | sqlite3 commits.sqlite);
         if [ "$STATUS" == "FAILED" ] ; then
             exit 1;
